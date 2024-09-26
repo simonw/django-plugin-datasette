@@ -21,6 +21,13 @@ Once installed, `/-/datasette/` will serve a Datasette instance that exposes the
 
 **Warning:** This will expose your `auth_user` table including the hashed `password` field, so do NOT run this in production. Use this only as a debugging tool in your development environment.
 
+You will need to run Django using ASGI. One way to do that is with [Uvicorn](https://www.uvicorn.org/):
+
+```bash
+pip install uvicorn
+uvicorn myproject.asgi:application
+```
+
 ## Development
 
 To set up this plugin locally, first checkout the code. Then create a new virtual environment:
