@@ -1,0 +1,34 @@
+[project]
+name = "django-plugin-datasette"
+version = "0.1"
+description = "Django plugin to run Datasette inside of Django"
+readme = "README.md"
+authors = [{name = "Simon Willison"}]
+license = {text = "Apache-2.0"}
+classifiers = [
+    "License :: OSI Approved :: Apache Software License"
+]
+dependencies = [
+    "django",
+    "djp>=0.3",
+    "datasette",
+]
+
+[project.urls]
+Homepage = "https://github.com/simonw/django-plugin-datasette"
+Changelog = "https://github.com/simonw/django-plugin-datasette/releases"
+Issues = "https://github.com/simonw/django-plugin-datasette/issues"
+CI = "https://github.com/simonw/django-plugin-datasette/actions"
+
+[project.entry-points.djp]
+django_plugin_datasette = "django_plugin_datasette"
+
+[tool.setuptools.package-data]
+"*" = ["*.html", "*.js", "*.css"]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-django", "pytest-asyncio", "httpx"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.test_project.settings"
+pythonpath = ["."]
