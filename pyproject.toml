@@ -23,6 +23,9 @@ CI = "https://github.com/simonw/django-plugin-datasette/actions"
 [project.entry-points.djp]
 django_plugin_datasette = "django_plugin_datasette"
 
+[project.entry-points.datasette]
+django_plugin_datasette = "django_plugin_datasette"
+
 [tool.setuptools.package-data]
 "*" = ["*.html", "*.js", "*.css"]
 

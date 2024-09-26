@@ -1,11 +1,14 @@
 import djp
-from datasette.app import Datasette
+import datasette
+from datasette.utils import sqlite3
 
 
 ds = None
 
 
 def get_ds():
+    from datasette.app import Datasette
+
     global ds
     if ds is None:
         from django.conf import settings
@@ -21,6 +24,20 @@ def get_ds():
             },
         ).app()
     return ds
+
+
+def redact_password(action, table, column, db_name, trigger_name):
+    if action != sqlite3.SQLITE_READ:
+        return sqlite3.SQLITE_OK
+    if table == "auth_user" and column == "password":
+        return sqlite3.SQLITE_IGNORE
+    else:
+        return sqlite3.SQLITE_OK
+
+
+@datasette.hookimpl
+def prepare_connection(conn, database, datasette):
+    conn.set_authorizer(redact_password)
 
 
 @djp.hookimpl

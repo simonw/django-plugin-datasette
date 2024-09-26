@@ -19,14 +19,14 @@ pip install django-plugin-datasette
 
 Once installed, `/-/datasette/` will serve a Datasette instance that exposes the contents of any SQLite databases used by Django.
 
-**Warning:** This will expose your `auth_user` table including the hashed `password` field, so do NOT run this in production. Use this only as a debugging tool in your development environment.
-
 You will need to run Django using ASGI. One way to do that is with [Uvicorn](https://www.uvicorn.org/):
 
 ```bash
 pip install uvicorn
 uvicorn myproject.asgi:application
 ```
+
+**Warning:** This will expose your entire Django database to anyone who visits `/-/datasette/`. The `auth_user.password` field is automatically redacted, but you should still take care that this does not expose any other sensitive information.
 
 ## Development
 
